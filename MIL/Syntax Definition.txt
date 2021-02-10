@@ -1,0 +1,91 @@
+﻿There can only be a maximum of 4 keywords/functions per line
+Methods stop functionality at Error
+
+What MIL does:
+
+    Reasign Variable value
+    Declear Variable
+        VAR hel = "hello"
+        VAR helloWorld = ADD("Hello ", "World")
+        VAR smt = SUB("Hello", "l")
+
+    Add values
+        ADD(value1,value2,...)
+
+    Subtract values
+        SUB(value1,value2,...)
+
+    Multiply values
+        MUL(value1,value2,...)
+
+    Divide Values
+        DIV(value1,value2,...)
+    
+    Compare Values
+        LESS(Value1|Value2)
+        GRT(Value1|Value2)
+        EQU(Value1|Value2)
+        LEQU(Value1|Value2)
+        GEQU(Value1|Value2)
+        COMP(Value1,Value2,CompMethod)
+
+    Declear Code breakpoints
+        :Breakpoint name
+        goto name
+    
+    Files
+        FILE(filename)
+        SAVE(filename)
+
+    String Operations
+        REP(value1, value2)
+        SUBSTR(value, Start, Stop)
+        LEN(value)
+        SPLIT(value, splitValue) - Return Array
+
+        REGEX
+            REGEX(stringValue, Regex)
+    
+    Arrays
+        ARR(valueName|length)
+        valueName(index)
+    
+    Value types
+        NUM -> double
+        STR -> character
+        VAR -> anything
+    
+    Console properties
+        TITLE(title)
+        BG(colour)
+        FG(colour)
+        TOP(value)
+        Left(value)
+
+    Comments
+        REM this is a comment;
+
+    Method
+        METHOD methodName
+            PARM(value1, value2, value)
+            Code
+            Code
+            Code
+        ENDM
+    
+    Class
+        CLASS className
+
+            METHOD className
+                PARM(value1, value2, value)
+                Code
+                Code
+                Code
+            ENDM
+
+            METHOD methodName
+                PARM(value1, value2, value)
+                Code
+                Code
+                Code
+            ENDM
