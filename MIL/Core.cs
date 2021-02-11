@@ -8,11 +8,51 @@ namespace MIL
 {
     public class Core
     {
+        #region Values and Variables
+
+        #region Variables
+
+        /// <summary>
+        /// Process parameter values (Replace variable names with ther values)
+        /// </summary>
+        public void ProcessParameters(ref object[] parameters)
+        {
+
+        }
+
+        #endregion
+
         #region Values
+
         public dynamic Add(params object[] parameters)
         {
+            ProcessParameters(ref parameters);
             dynamic output = null;
 
+            bool isNumeric = parameters[0].GetType() == typeof(double);
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (isNumeric)
+                {
+                    //Treat as numeric addition
+                    double currentValue = Convert.ToDouble(parameters[i]);
+
+                    if (output == null)
+                        output = currentValue;
+                    else
+                        output += currentValue;
+                }
+                else
+                {
+                    //Treat as string addition
+                    if (output == null)
+                        output = "";
+
+                    //Add parameter value to output
+                    output += Convert.ToString(parameters[i]);
+                }
+            }
+            
             return output;
         }
         public dynamic SUB(params object[] parameters)
@@ -51,6 +91,8 @@ namespace MIL
         {
             return null;
         }
+        #endregion
+
         #endregion
     }
 }
