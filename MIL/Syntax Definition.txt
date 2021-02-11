@@ -53,6 +53,7 @@ What MIL does:
     Value types
         NUM -> double
         STR -> character
+        BOOL -> boolean
         VAR -> anything
     
     Console properties
