@@ -3,11 +3,12 @@ Methods stop functionality at Error
 
 What MIL does:
 
-    Reasign Variable value
     Declear Variable
         VAR hel = "hello"
-        VAR helloWorld = ADD("Hello ", "World")
         VAR smt = SUB("Hello", "l")
+
+    Reasign Variable value
+        hel = ADD("Hello ", "World")
 
     Add values
         ADD(value1,value2,...)
@@ -28,6 +29,21 @@ What MIL does:
         LEQU(Value1|Value2)
         GEQU(Value1|Value2)
         COMP(Value1,Value2,CompMethod)
+        AND(Value1|Value2)
+        OR(Value1|Value2)
+        NOT(Value1|Value2)
+
+    Input
+        Input("Display string")
+    
+    Output
+        print("Output data")
+
+    Modifiers
+        +=
+        -=
+        *=
+        /=
 
     Declear Code breakpoints
         :Breakpoint name
@@ -51,10 +67,23 @@ What MIL does:
         valueName(index)
     
     Value types
-        NUM -> double
+        LONG -> long
+        FLOAT -> float
+        BYTE -> BYTE;
+        INT -> int;
+        DOUBLE -> double
         STR -> character
         BOOL -> boolean
         VAR -> anything
+        Object
+            ObjectName::value
+            ObjectName
+        Array
+            arrayName(23)
+        Null
+
+     Cast Values
+        CAST(Type|Value)
     
     Console properties
         TITLE(title)
@@ -90,3 +119,13 @@ What MIL does:
                 Code
                 Code
             ENDM
+    EndClass
+
+
+
+    Possible methods of compilation:
+
+    Have the MIL program
+    Have a compiler class that takes the code in its tokenized form
+    Optimize the tokens or optimize on the go
+    have the compiled program just inteprete the code

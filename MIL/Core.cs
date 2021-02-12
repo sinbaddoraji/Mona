@@ -9,7 +9,7 @@ namespace MIL
     public class Core
     {
         VariableHandler variableHandler;
-
+        
         #region Values and Variables
 
         #region Variables
@@ -19,6 +19,8 @@ namespace MIL
         /// </summary>
         public void ProcessParameters(ref object[] parameters)
         {
+            //Replace parameters with their processed values
+            //Note:: There might be recursive methods so Take node 
 
         }
 
