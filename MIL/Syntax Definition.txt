@@ -29,9 +29,10 @@ What MIL does:
         LEQU(Value1|Value2)
         GEQU(Value1|Value2)
         COMP(Value1,Value2,CompMethod)
-        AND(Value1|Value2)
-        OR(Value1|Value2)
-        NOT(Value1|Value2)
+
+        AND(Value1, Value2)
+        OR(Value1, Value2)
+        NOT(Value1)
 
     Input
         Input("Display string")

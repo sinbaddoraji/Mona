@@ -24,6 +24,16 @@ namespace MIL
 
         }
 
+        /// <summary>
+        /// Process parameter value (Replace variable name with its values)
+        /// </summary>
+        public void ProcessParameter(ref object parameters)
+        {
+            //Replace parameters with their processed values
+            //Note:: There might be recursive methods so Take node 
+
+        }
+
         #endregion
 
         #region Values
@@ -246,6 +256,65 @@ namespace MIL
         {
             return method(new[] { value1, value2});
         }
+
+
+        /// <summary>
+        /// Return the AND of the presented parameters
+        /// </summary>
+        public dynamic And(params object[] parameters)
+        {
+            ProcessParameters(ref parameters);
+
+            bool output = (bool)parameters[0];
+
+            for (int i = 1; i < parameters.Length; i++)
+            {
+                try
+                {
+                    output &= Convert.ToBoolean(parameters[i]);
+                }
+                catch
+                {
+                    throw new Exception("Attempted to AND a non-boolean object");
+                }
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Return the OR of the presented parameters
+        /// </summary>
+        public dynamic Or(params object[] parameters)
+        {
+            ProcessParameters(ref parameters);
+
+            bool output = (bool)parameters[0];
+
+            for (int i = 1; i < parameters.Length; i++)
+            {
+                try
+                {
+                    output |= Convert.ToBoolean(parameters[i]);
+                }
+                catch
+                {
+                    throw new Exception("Attempted to AND a non-boolean object");
+                }
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Return the OR of the presented parameters
+        /// </summary>
+        public dynamic Not(object parameter)
+        {
+            ProcessParameter(ref parameter);
+            return !(bool)parameter;
+        }
+
         #endregion
 
         #endregion
