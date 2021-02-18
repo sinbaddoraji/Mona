@@ -36,9 +36,11 @@ What MIL does:
 
     Input
         Input("Display string")
+        ReadKey() // Read char
     
     Output
         print("Output data")
+        println("Something")
 
     Modifiers
         +=
@@ -73,7 +75,7 @@ What MIL does:
         BYTE -> BYTE;
         INT -> int;
         DOUBLE -> double
-        STR -> character
+        STRING -> character
         BOOL -> boolean
         VAR -> anything
         Object

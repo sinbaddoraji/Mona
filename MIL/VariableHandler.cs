@@ -11,6 +11,56 @@ namespace MIL
     {
         private Dictionary<string, Variable> variables;
 
+        public VariableType GetCastType(string castType)
+        {
+            Variable.VariableType variableType = Variable.VariableType.Null;
+            switch (castType.ToUpper())
+            {
+                case "LONG":
+                    variableType = Variable.VariableType.Long;
+                    break;
+
+                case "FLOAT":
+                    variableType = Variable.VariableType.Float;
+                    break;
+
+                case "BYTE":
+                    variableType = Variable.VariableType.Byte;
+                    break;
+
+                case "INT":
+                    variableType = Variable.VariableType.Int;
+                    break;
+
+                case "DOUBLE":
+                    variableType = Variable.VariableType.Double;
+                    break;
+
+                case "STRING":
+                    variableType = Variable.VariableType.String;
+                    break;
+
+                case "BOOL":
+                    variableType = Variable.VariableType.Boolean;
+                    break;
+
+                case "VAR":
+                    variableType = Variable.VariableType.Object;
+                    break;
+
+                case "Array":
+                    variableType = Variable.VariableType.Array;
+                    break;
+
+                case "Null":
+                default:
+                    variableType = Variable.VariableType.Null;
+                    break;
+            }
+
+            return variableType;
+        }
+
 
         /// <summary>
         /// update variable
@@ -83,5 +133,6 @@ namespace MIL
                     return valueString;
             }
         }
+
     }
 }

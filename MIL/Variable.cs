@@ -12,7 +12,12 @@ namespace MIL
         {
             Long, Float, Byte, Int, Double, String, Boolean, Object, Array, Null
         }
-        
+
+        public enum VariableUpdateType
+        {
+            EqualTo, PlusEqualTo, MinusEqualTo, MulEqualTo, DivEqualTo
+        }
+
         public string customCast;
         public bool isCustomVariable;
 
@@ -106,19 +111,151 @@ namespace MIL
             return null;
         }
 
-        public void UpdateValue(object value)
+        public void UpdateValue(object value, VariableUpdateType variableUpdateType = VariableUpdateType.EqualTo)
         {
-            Type newValueType = value.GetType();
-            Type oldValueType = variableValue.GetType();
-
-            if (newValueType == oldValueType)
+            try
             {
-                variableValue = value;
+                switch (variableUpdateType)
+                {
+                    case VariableUpdateType.EqualTo:
+                        variableValue = value;
+                        break;
+                    case VariableUpdateType.PlusEqualTo:
+                        PlusEqualTo(value);
+                        break;
+                    case VariableUpdateType.MinusEqualTo:
+                        MinusEqualTo(value);
+                        break;
+                    case VariableUpdateType.MulEqualTo:
+                        MulEqualTo(value);
+                        break;
+                    case VariableUpdateType.DivEqualTo:
+                        DivEqualTo(value);
+                        break;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+
+        private void PlusEqualTo(object value)
+        {
+            if (value.GetType() == typeof(long))
+            {
+                variableValue = ((long)variableValue) + ((long)value);
+            }
+            else if (value.GetType() == typeof(float))
+            {
+                variableValue = ((float)variableValue) + ((float)value);
+            }
+            else if (value.GetType() == typeof(byte))
+            {
+                variableValue = ((byte)variableValue) + ((byte)value);
+            }
+            else if (value.GetType() == typeof(int))
+            {
+                variableValue = ((int)variableValue) + ((int)value);
+            }
+            else if (value.GetType() == typeof(double))
+            {
+                variableValue = ((double)variableValue) + ((double)value);
+            }
+            else if (value.GetType() == typeof(string))
+            {
+                variableValue = ((string)variableValue) + ((string)value);
             }
             else
             {
-                throw new Exception($"Attempted to set a {newValueType.Name} to a {oldValueType.Name} variable");
+                throw new Exception($"Invalid expression. Can not add {variableValue}");
             }
         }
+
+        private void MinusEqualTo(object value)
+        {
+            if (value.GetType() == typeof(long))
+            {
+                variableValue = ((long)variableValue) - ((long)value);
+            }
+            else if (value.GetType() == typeof(float))
+            {
+                variableValue = ((float)variableValue) - ((float)value);
+            }
+            else if (value.GetType() == typeof(byte))
+            {
+                variableValue = ((byte)variableValue) - ((byte)value);
+            }
+            else if (value.GetType() == typeof(int))
+            {
+                variableValue = ((int)variableValue) - ((int)value);
+            }
+            else if (value.GetType() == typeof(double))
+            {
+                variableValue = ((double)variableValue) - ((double)value);
+            }
+            else
+            {
+                throw new Exception($"Invalid expression. Can not subtract {variableValue}");
+            }
+        }
+
+        private void MulEqualTo(object value)
+        {
+            if (value.GetType() == typeof(long))
+            {
+                variableValue = ((long)variableValue) * ((long)value);
+            }
+            else if (value.GetType() == typeof(float))
+            {
+                variableValue = ((float)variableValue) * ((float)value);
+            }
+            else if (value.GetType() == typeof(byte))
+            {
+                variableValue = ((byte)variableValue) * ((byte)value);
+            }
+            else if (value.GetType() == typeof(int))
+            {
+                variableValue = ((int)variableValue) * ((int)value);
+            }
+            else if (value.GetType() == typeof(double))
+            {
+                variableValue = ((double)variableValue) * ((double)value);
+            }
+            else
+            {
+                throw new Exception($"Invalid expression. Can not multiply {variableValue}");
+            }
+        }
+
+        private void DivEqualTo(object value)
+        {
+            if (value.GetType() == typeof(long))
+            {
+                variableValue = ((long)variableValue) / ((long)value);
+            }
+            else if (value.GetType() == typeof(float))
+            {
+                variableValue = ((float)variableValue) / ((float)value);
+            }
+            else if (value.GetType() == typeof(byte))
+            {
+                variableValue = ((byte)variableValue) / ((byte)value);
+            }
+            else if (value.GetType() == typeof(int))
+            {
+                variableValue = ((int)variableValue) / ((int)value);
+            }
+            else if (value.GetType() == typeof(double))
+            {
+                variableValue = ((double)variableValue) / ((double)value);
+            }
+            else
+            {
+                throw new Exception($"Invalid expression. Can not divide {variableValue}");
+            }
+        }
+
     }
 }

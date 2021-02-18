@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace MIL
 {
     public class Core
     {
-        VariableHandler variableHandler;
-        
+        private readonly VariableHandler variableHandler;
+        private readonly Regex arrayRegex = new Regex(@"(\w+)\[(\d+\])");
+        private readonly Regex castRegex = new Regex(@"CAST\((\w+)\|(\w+)\)");
+
         #region Values and Variables
 
         #region Variables
@@ -21,22 +20,83 @@ namespace MIL
         {
             //Replace parameters with their processed values
             //Note:: There might be recursive methods so Take node 
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                ProcessParameter(ref parameters[i]);
+            }
 
         }
 
         /// <summary>
         /// Process parameter value (Replace variable name with its values)
         /// </summary>
-        public void ProcessParameter(ref object parameters)
+        public void ProcessParameter(ref object parameter)
         {
             //Replace parameters with their processed values
             //Note:: There might be recursive methods so Take node 
+
+            if (parameter.GetType() == typeof(string))
+            {
+                string parameterStr = (string)parameter;
+                if (arrayRegex.IsMatch(parameterStr))
+                {
+                    Match m = arrayRegex.Match(parameterStr);
+
+                    string arrayName = m.Groups[0].Value;
+                    int arrayIndex = int.Parse(m.Groups[1].Value);
+
+                    parameter = variableHandler.GetValue(arrayName, arrayIndex);
+                }
+                else if (castRegex.IsMatch(parameterStr))
+                {
+                    //CAST\((\w+)\|(\w+)\)
+                    Match m = arrayRegex.Match(parameterStr);
+
+                    string castType = m.Groups[0].Value;
+                    object castValue = m.Groups[1].Value;
+                    ProcessParameter(ref castValue);
+                    variableHandler.GetCastType(castType);
+                    parameter = variableHandler.GetValue(castValue, -1, variableHandler.GetCastType(castType), (string)castValue);
+                }
+            }
+        }
+
+
+        #region Assigning/Reassigning variables
+
+        /// <summary>
+        /// Initalize "variableType" variable "name" by "value
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="variableType"></param>
+        public void InitalizeVariable(string name, object value = null, Variable.VariableType variableType = Variable.VariableType.Null)
+        {
+            variableHandler.AddVariable(name, variableType, value);
+        }
+
+        /// <summary>
+        /// Update variable called "name"
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void UpdateVariable(string name, object value = null)
+        {
+            variableHandler.UpdateVariable(name, value);
+        }
+
+        public void PlusEqualTo(string name, object vlaue)
+        {
 
         }
 
         #endregion
 
+        #endregion
+
         #region Values
+
+        #region Mathematical operations
 
         /// <summary>
         /// Return the addition of the presented parameters
@@ -55,21 +115,27 @@ namespace MIL
                     double currentValue = Convert.ToDouble(parameters[i]);
 
                     if (output == null)
+                    {
                         output = currentValue;
+                    }
                     else
+                    {
                         output += currentValue;
+                    }
                 }
                 else
                 {
                     //Treat as string addition
                     if (output == null)
+                    {
                         output = "";
+                    }
 
                     //Add parameter value to output
                     output += Convert.ToString(parameters[i]);
                 }
             }
-            
+
             return output;
         }
 
@@ -144,6 +210,10 @@ namespace MIL
 
             return output;
         }
+
+        #endregion
+
+        #region Compare values
 
         /// <summary>
         /// Check if value 1 is less than value 2
@@ -252,9 +322,9 @@ namespace MIL
         /// <summary>
         /// Compare values based on function
         /// </summary>
-        public dynamic COMP(object value1, object value2, Func<object[],bool> method)
+        public dynamic COMP(object value1, object value2, Func<object[], bool> method)
         {
-            return method(new[] { value1, value2});
+            return method(new[] { value1, value2 });
         }
 
 
@@ -313,6 +383,50 @@ namespace MIL
         {
             ProcessParameter(ref parameter);
             return !(bool)parameter;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Input Output
+
+        /// <summary>
+        /// Return Input from user
+        /// </summary>
+        /// <returns></returns>
+        public string Input()
+        {
+            return Input("");
+        }
+
+        /// <summary>
+        /// Return input from user after displaying a message
+        /// </summary>
+        /// <param name="inputMessage"></param>
+        /// <returns></returns>
+        public string Input(string inputMessage)
+        {
+            Console.Write(inputMessage);
+            return Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Print output to screen
+        /// </summary>
+        /// <param name="output"></param>
+        public void Print(string output)
+        {
+            Console.Write(output);
+        }
+
+        /// <summary>
+        /// Print output with a new line
+        /// </summary>
+        /// <param name="output"></param>
+        public void Println(string output)
+        {
+            Console.WriteLine(output);
         }
 
         #endregion
