@@ -9,6 +9,73 @@ namespace MIL
         private readonly Regex arrayRegex = new Regex(@"(\w+)\[(\d+\])");
         private readonly Regex castRegex = new Regex(@"CAST\((\w+)\|(\w+)\)");
 
+        #region Files
+            
+        /// <summary>
+        /// Read File
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public string ReadFile(string filename)
+        {
+            return System.IO.File.ReadAllText(filename);
+        }
+
+        /// <summary>
+        /// Save file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="data"></param>
+        public void SaveFile(string filename, string data)
+        {
+            System.IO.File.WriteAllText(filename, data);
+        }
+
+        /// <summary>
+        /// Write byte array to file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="data"></param>
+        public void WriteAllBytes(string filename, byte[] data)
+        {
+             System.IO.File.WriteAllBytes(filename, data);
+        }
+
+        /// <summary>
+        /// Read file bytes
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public byte[] ReadBytes(string filename)
+        {
+            return System.IO.File.ReadAllBytes(filename);
+        }
+
+        #endregion
+
+        #region Directories
+
+        /// <summary>
+        /// Get Directories
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public string[] GetDirectories(string path)
+        {
+            return System.IO.Directory.GetDirectories(path);
+        }
+
+        /// <summary>
+        /// Create s[ecified directory
+        /// </summary>
+        /// <param name="path"></param>
+        public void CreateDirectory(string path)
+        {
+            System.IO.Directory.CreateDirectory(path);
+        }
+
+        #endregion
+
         #region Values and Variables
 
         #region Variables
@@ -85,10 +152,6 @@ namespace MIL
             variableHandler.UpdateVariable(name, value);
         }
 
-        public void PlusEqualTo(string name, object vlaue)
-        {
-
-        }
 
         #endregion
 
@@ -389,6 +452,104 @@ namespace MIL
 
         #endregion
 
+        #region String
+
+        public string Replace(string str, string replaceWith)
+        {
+            return str.Replace(str, replaceWith);
+        }
+
+        public string Remove(string str, int startIndex, int count)
+        {
+            return str.Remove(startIndex, count);
+        }
+
+        public string Substr(string str, int startIndex, int count)
+        {
+            return str.Substring(startIndex, count);
+        }
+
+        public int Len(string str)
+        {
+            return str.Length;
+        }
+
+        public int IndexOf(string str, char c)
+        {
+            return str.IndexOf(c);
+        }
+
+        public int LastIndexOf(string str, char c)
+        {
+            return str.LastIndexOf(c);
+        }
+
+        public string[] Split(string str, string splitValue)
+        {
+            return str.Split(new[] { splitValue }, StringSplitOptions.None);
+        }
+
+        public string Join(string[] str, string splitValue)
+        {
+            return string.Join(splitValue, str);   
+        }
+
+        public string TrimStart(string val, char trimBy)
+        {
+            return val.TrimStart(trimBy);
+        }
+
+        public string TrimEnd(string val, char trimBy)
+        {
+            return val.TrimEnd(trimBy);
+        }
+
+        public string Trim(string val, char trimBy)
+        {
+            return val.Trim(trimBy);
+        }
+
+        public string ToLower(string value)
+        {
+            return value.ToLower();
+        }
+
+        public string ToUpper(string value)
+        {
+            return value.ToUpper();
+        }
+
+        public char[] ToArray(string value)
+        {
+            return value.ToCharArray();
+        }
+
+        public bool IsRegexMatch(string value, string regex)
+        {
+            return Regex.IsMatch(value, regex);
+        }
+
+        public string[] RegexSplit(string value, string regex)
+        {
+            return Regex.Split(value, regex);
+        }
+
+        public bool EndsWith(string str, string substr)
+        {
+            return str.EndsWith(substr);
+        }
+
+        public bool StartsWith(string str, string substr)
+        {
+            return str.StartsWith(substr);
+        }
+
+        #endregion
+
+        #region Math
+
+        #endregion
+
         #region Input Output
 
         /// <summary>
@@ -431,6 +592,68 @@ namespace MIL
 
         #endregion
 
+        #endregion
+
+        #region Console Properties
+
+        /// <summary>
+        /// Set window title
+        /// </summary>
+        /// <param name="title"></param>
+        public void Title(string title)
+        {
+            Console.Title = title;
+        }
+
+        /// <summary>
+        /// Set console background colour
+        /// </summary>
+        /// <param name="color"></param>
+        public void BG(string color)
+        {
+            ConsoleColor bg =(ConsoleColor)Enum.Parse(typeof(ConsoleColor), color);
+            Console.BackgroundColor = bg;
+        }
+
+        /// <summary>
+        /// Set console foreground colour
+        /// </summary>
+        /// <param name="color"></param>
+        public void FG(string color)
+        {
+            ConsoleColor fg = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color);
+            Console.ForegroundColor = fg;
+        }
+
+        /// <summary>
+        /// Set cursor posiition
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void CursorPos(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+        }
+
+        /// <summary>
+        /// Set console window location
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void WinPos(int x, int y)
+        {
+            Console.SetWindowPosition(x, y);
+        }
+
+        /// <summary>
+        /// Set console window size
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void WinSize(int x, int y)
+        {
+            Console.SetWindowSize(x, y);
+        }
         #endregion
     }
 }

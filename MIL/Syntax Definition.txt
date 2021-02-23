@@ -23,11 +23,11 @@ What MIL does:
         DIV(value1,value2,...)
     
     Compare Values
-        LESS(Value1|Value2)
-        GRT(Value1|Value2)
-        EQU(Value1|Value2)
-        LEQU(Value1|Value2)
-        GEQU(Value1|Value2)
+        LESS(Value1,Value2)
+        GRT(Value1,Value2)
+        EQU(Value1,Value2)
+        LEQU(Value1,Value2)
+        GEQU(Value1,Value2)
         COMP(Value1,Value2,CompMethod)
 
         AND(Value1, Value2)
@@ -53,21 +53,44 @@ What MIL does:
         goto name
     
     Files
-        FILE(filename)
-        SAVE(filename)
+        ReadBytes(filename)
+        WriteBytes(filename)
+        READFILE(filename) -> returns file in string
+        SAVEFILE(filename, "data")
+
+    Directories
+        GetDirectories(path)
+        CreateDirectory(Path)
 
     String Operations
-        REP(value1, value2)
+        REP(str, replaceWith)
+        Remove(str, startIndex, count)
         SUBSTR(value, Start, Stop)
         LEN(value)
+        LastIndexOf(str,char)
+        IndexOf(str,char)
         SPLIT(value, splitValue) - Return Array
-
+        JOIN(value[], joinBy)
+        TrimStart(value, char)
+        TrimEnd(value, char)
+        Trim(value, (strichar)
+        ToLower(value)
+        ToUpper(value)
+        ToArray(value)
         REGEX
-            REGEX(stringValue, Regex)
+            IsRegexMatch(stringValue, Regex)
+            RegexSplit
+        
+        String Comparisons
+            EndsWith(string, substr)
+            StartsWith(string, substr)
     
     Arrays
-        ARR(valueName|length)
-        valueName(index)
+        ARR(valueName,length)
+        valueName[index]
+
+    Array Functions
+        
     
     Value types
         LONG -> long
@@ -82,7 +105,7 @@ What MIL does:
             ObjectName::value
             ObjectName
         Array
-            arrayName(23)
+            ARR(valueName|length)
         Null
 
      Cast Values
@@ -93,7 +116,9 @@ What MIL does:
         BG(colour)
         FG(colour)
         TOP(value)
-        Left(value)
+        CursorPos(value)
+        WinPos(x,y)
+        WinSize(x,y)
 
     Comments
         REM this is a comment;
