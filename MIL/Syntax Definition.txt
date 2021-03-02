@@ -5,42 +5,42 @@ What MIL does:
 
     Declear Variable
         VAR hel = "hello"
-        VAR smt = SUB("Hello", "l")
+        VAR smt = SUB("Hello", "l");
 
     Reasign Variable value
-        hel = ADD("Hello ", "World")
+        hel = ADD("Hello ", "World");
 
     Add values
-        ADD(value1,value2,...)
+        ADD(value1,value2,...);
 
     Subtract values
-        SUB(value1,value2,...)
+        SUB(value1,value2,...);
 
     Multiply values
-        MUL(value1,value2,...)
+        MUL(value1,value2,...);
 
     Divide Values
-        DIV(value1,value2,...)
+        DIV(value1,value2,...);
     
     Compare Values
-        LESS(Value1,Value2)
-        GRT(Value1,Value2)
-        EQU(Value1,Value2)
-        LEQU(Value1,Value2)
-        GEQU(Value1,Value2)
-        COMP(Value1,Value2,CompMethod)
+        LESS(Value1,Value2);
+        GRT(Value1,Value2);
+        EQU(Value1,Value2);
+        LEQU(Value1,Value2);
+        GEQU(Value1,Value2);
+        COMP(Value1,Value2,CompMethod);
 
-        AND(Value1, Value2)
-        OR(Value1, Value2)
-        NOT(Value1)
+        AND(Value1, Value2);
+        OR(Value1, Value2);
+        NOT(Value1);
 
     Input
-        Input("Display string")
-        ReadKey() // Read char
+        Input("Display string");
+        ReadKey(); // Read char
     
     Output
-        print("Output data")
-        println("Something")
+        print("Output data");
+        println("Something");
 
     Modifiers
         +=
@@ -50,43 +50,44 @@ What MIL does:
 
     Declear Code breakpoints
         :Breakpoint name
-        goto name
+        goto name;
+        or GOTO(name);
     
     Files
-        ReadBytes(filename)
-        WriteBytes(filename)
-        READFILE(filename) -> returns file in string
-        SAVEFILE(filename, "data")
+        ReadBytes(filename);
+        WriteBytes(filename);
+        READFILE(filename); -> returns file in string
+        SAVEFILE(filename, "data");
 
     Directories
-        GetDirectories(path)
-        CreateDirectory(Path)
+        GetDirectories(path);
+        CreateDirectory(Path);
 
     String Operations
-        REP(str, replaceWith)
-        Remove(str, startIndex, count)
-        SUBSTR(value, Start, Stop)
-        LEN(value)
-        LastIndexOf(str,char)
-        IndexOf(str,char)
-        SPLIT(value, splitValue) - Return Array
-        JOIN(value[], joinBy)
-        TrimStart(value, char)
-        TrimEnd(value, char)
-        Trim(value, (strichar)
-        ToLower(value)
-        ToUpper(value)
-        ToArray(value)
+        REP(str, replaceWith);
+        Remove(str, startIndex, count);
+        SUBSTR(value, Start, Stop);
+        LEN(value);
+        LastIndexOf(str,char);
+        IndexOf(str,char);
+        SPLIT(value, splitValue); - Return Array
+        JOIN(value[], joinBy);
+        TrimStart(value, char);
+        TrimEnd(value, char);
+        Trim(value, (strichar);
+        ToLower(value);
+        ToUpper(value);
+        ToArray(value);
         REGEX
-            IsRegexMatch(stringValue, Regex)
+            IsRegexMatch(stringValue, Regex);
             RegexSplit
         
         String Comparisons
-            EndsWith(string, substr)
-            StartsWith(string, substr)
+            EndsWith(string, substr);
+            StartsWith(string, substr);
     
     Arrays
-        ARR(valueName,length)
+        ARR(valueName,length);
         valueName[index]
 
     Array Functions
@@ -105,49 +106,48 @@ What MIL does:
             ObjectName::value
             ObjectName
         Array
-            ARR(valueName|length)
+            ARR(valueName|length);
         Null
 
      Cast Values
-        CAST(Type|Value)
+        CAST(Type|Value);
     
     Console properties
-        TITLE(title)
-        BG(colour)
-        FG(colour)
-        TOP(value)
-        CursorPos(value)
-        WinPos(x,y)
-        WinSize(x,y)
+        TITLE(title);
+        BG(colour);
+        FG(colour);
+        TOP(value);
+        CursorPos(value);
+        WinPos(x,y);
+        WinSize(x,y);
 
     Comments
         REM this is a comment;
 
     Method
         METHOD methodName
-            PARM(value1, value2, value)
+            PARM(value1, value2, value);
             Code
             Code
             Code
         ENDM
     
-    Class
-        CLASS className
+    CLASS className:
 
-            METHOD className
-                PARM(value1, value2, value)
-                Code
-                Code
-                Code
-            ENDM
+            METHOD className:
+                PARM(value1, value2, value);
+                Code;
+                Code;
+                Code;
+            ENDM;
 
-            METHOD methodName
-                PARM(value1, value2, value)
-                Code
-                Code
-                Code
-            ENDM
-    EndClass
+            METHOD methodName:
+                PARM(value1, value2, value);
+                Code;
+                Code;
+                Code;
+            ENDM;
+    EndClass;
 
 
 

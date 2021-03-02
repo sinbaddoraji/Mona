@@ -1,0 +1,2 @@
+VAR hel = "hello";
+print(ADD(hel," world"));

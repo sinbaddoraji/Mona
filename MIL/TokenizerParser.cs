@@ -9,19 +9,53 @@ namespace MIL
 {
     public class TokenizerParser
     {
-        #region Tokenizing Rules
-        private Regex declearVariable = new Regex("");
-        private Regex reasignVariable = new Regex("");
-        private Regex modifyStatements = new Regex("");
-        private Regex gotoStatemnt = new Regex("");
-        private Regex methodStatement = new Regex("");
+        private Regex declearVariable = new Regex(@"(\w+)\s+(\w+)\s?([\-|\+|\\|\*|\/|+|=|\%|\^]{1,2})\s+(.*)\;");
+        private Regex reasignVariable = new Regex(@"(\w+)\s?([\-|\+|\\|\*|\/|+|=|\%|\^]{1,2})\s+(.*)\;");
+        private Regex doubleKeyWord = new Regex(@"(\w+)\s?(\w+);");
+        private Regex methodStatement = new Regex(@"(\w+)\((\w+)\)\;");
+        private Regex classRegex = new Regex(@"CLASS\s+(\w+):(.*)EndClass;");
+        private Regex methodRegex = new Regex(@"METHOD\s+(\w+):(.*)ENDM;");
+        private Regex symbols = new Regex("(\\w+|\\\".*\\\"|\'.*\'|\\s+|\\=|\\+|\\-|\\*|\\%|\\/|\\,|\\(|\\)|\\;)");
 
-        public string[] codeLines; //Code tokens
+        private MatchCollection code;
+        public List<string> codeLines; //Code tokens
 
-        #endregion
-        public TokenizerParser(string[] codeLines)
+        public int index = 0;
+        Core core = new Core();
+
+        public TokenizerParser(string code)
         {
-            this.codeLines = codeLines;
+            this.code = symbols.Matches(code);
+        }
+
+        private string Next()
+        {
+            return code[index++].Value;
+        }
+
+        private string NextLine()
+        {
+            string codeLine = "";
+
+            while(true)
+            {
+                string next = Next();
+                codeLine += next + " ";
+
+                if (next == ";" || next == ":")
+                    break;
+            }
+
+            return codeLine.Trim();
+        }
+
+        public void ParseRun()
+        {
+            string nextLine;
+            while(true)
+            {
+                nextLine = NextLine();
+            }
         }
 
     }
