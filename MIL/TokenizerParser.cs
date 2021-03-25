@@ -15,7 +15,7 @@ namespace MIL
         private Regex methodStatement = new Regex(@"(\w+)\((\w+)\)\;");
         private Regex classRegex = new Regex(@"CLASS\s+(\w+):(.*)EndClass;");
         private Regex methodRegex = new Regex(@"METHOD\s+(\w+):(.*)ENDM;");
-        private Regex symbols = new Regex("(\\w+|\\\".*\\\"|\'.*\'|\\s+|\\=|\\+|\\-|\\*|\\%|\\/|\\,|\\(|\\)|\\;)");
+        private Regex symbols = new Regex("(\\w+|\\\".*?\\\"|\'.*?\'|\\s+|\\=|\\+|\\-|\\*|\\%|\\/|\\,|\\(|\\)|\\;)");
 
         private MatchCollection code;
         public List<string> codeLines; //Code tokens
@@ -30,31 +30,35 @@ namespace MIL
 
         private string Next()
         {
-            return code[index++].Value;
+            try
+            {
+                return code[index++].Value;
+            }
+            catch (Exception)
+            {
+                return "<EOF>";
+            }
         }
 
-        private string NextLine()
+        private IEnumerable<string> NextLine()
         {
-            string codeLine = "";
-
             while(true)
             {
                 string next = Next();
-                codeLine += next + " ";
+                yield return next;
 
-                if (next == ";" || next == ":")
+                if (next == ";" || next == ":" || next == "<EOF>")
                     break;
             }
-
-            return codeLine.Trim();
         }
 
         public void ParseRun()
         {
-            string nextLine;
-            while(true)
+            string nextLine = "";
+            while(nextLine != "<EOF>")
             {
-                nextLine = NextLine();
+                nextLine = string.Join("",NextLine());
+                Console.WriteLine(nextLine);
             }
         }
 
