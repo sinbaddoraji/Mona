@@ -8,9 +8,9 @@ namespace MIL
         private readonly VariableHandler variableHandler;
         private readonly Regex arrayRegex = new Regex(@"(\w+)\[(\d+\])");
         private readonly Regex castRegex = new Regex(@"CAST\((\w+)\|(\w+)\)");
-
+        private readonly Regex stringRegex = new Regex("\\\"(.*?)\\\"");
         #region Files
-            
+
         /// <summary>
         /// Read File
         /// </summary>
@@ -40,6 +40,7 @@ namespace MIL
         {
              System.IO.File.WriteAllBytes(filename, data);
         }
+
 
         /// <summary>
         /// Read file bytes
@@ -89,11 +90,17 @@ namespace MIL
             //Note:: There might be recursive methods so Take node 
             for (int i = 0; i < parameters.Length; i++)
             {
-                ProcessParameter(ref parameters[i]);
+                parameters[i] = ProcessParameter(parameters[i]);
             }
-
         }
 
+        private object ProcessParameter(object parameter)
+        {
+            object obj = parameter;
+            ProcessParameter(ref obj);
+
+            return obj;
+        }
         /// <summary>
         /// Process parameter value (Replace variable name with its values)
         /// </summary>
@@ -124,6 +131,16 @@ namespace MIL
                     ProcessParameter(ref castValue);
                     variableHandler.GetCastType(castType);
                     parameter = variableHandler.GetValue(castValue, -1, variableHandler.GetCastType(castType), (string)castValue);
+                }
+                else if(stringRegex.IsMatch(parameterStr))
+                {
+                    var m = stringRegex.Match(parameterStr).Groups[1].Value;
+                    parameter = m.Replace("\\b", "\b")
+                        .Replace("\\f", "\f")
+                        .Replace("\\n", "\n")
+                        .Replace("\\r", "\r")
+                        .Replace("\\t", "\t")
+                        .Replace("\\v", "\v");
                 }
             }
         }
@@ -576,9 +593,12 @@ namespace MIL
         /// Print output to screen
         /// </summary>
         /// <param name="output"></param>
-        public void Print(string output)
+        public void Print(object output)
         {
-            Console.Write(output);
+            object[] val = (string[])output;
+            ProcessParameters(ref val);
+
+            Console.Write(string.Join("",val));
         }
 
         /// <summary>

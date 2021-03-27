@@ -10,6 +10,6 @@ namespace Mona
     public class Class
     {
         private VariableHandler variableHandler;
-        public List<Method> methods;
+        //public List<Method> methods;
     }
 }

@@ -39,6 +39,7 @@ What MIL does:
         ReadKey(); // Read char
     
     Output
+        print("Your number is ", 9);
         print("Output data");
         println("Something");
 
